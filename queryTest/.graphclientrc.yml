@@ -1,5 +1,0 @@
-sources:
-  - name: hyperlaneoptimism
-    handler:
-      graphql:
-        endpoint: https://api.studio.thegraph.com/query/50673/hyperlaneoptimism/v0.0.1
