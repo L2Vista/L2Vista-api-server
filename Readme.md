@@ -1,10 +1,13 @@
 1. 컨트렉트 추가하기
    
 ```
-graph add 0xCC737a94FecaeC165AbCf12dED095BB13F037685 --abi=./HyperlaneMockup.json --contract-name=hyperlaneOfficial
+graph add 0xCC737a94FecaeC165AbCf12dED095BB13F037685 --abi=../HyperlaneMockup.json --contract-name=hyperlaneOfficial
+graph add 0x073EfC27ad791F735ca1EdF1F9cfe647B8D99aBf --abi=../CCIP.json --contract-name=ccip
 ```
 
-2. hyperlane & op - the graph
+
+
+1. hyperlane & op - the graph
 get messgae in first 10, skip 0
 
 ```

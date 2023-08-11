@@ -1,7 +1,7 @@
 //import the node-fetch package
 const fetch = require('node-fetch');
-const queryURL = "https://api.studio.thegraph.com/query/51055/l2vistaoptimsmgoerli/v0.0.1"
-
+const queryURLOp = "https://api.studio.thegraph.com/query/51055/l2vistaoptimsmgoerli/v0.0.1"
+const queryURLBase = "https://api.studio.thegraph.com/query/51055/l2vistabase/v0.0.1"
 /*
 * Function to fetch a list of tokens from the number
 * Parameter:
@@ -18,8 +18,10 @@ async function transmittedsQuery(_first, _skip){
           epoch
           blockNumber
           blockTimestamp
+          transactionHash
         }
       }
+      transmittedsCount
     `
     //set the request options                    
     var options = {
@@ -30,7 +32,7 @@ async function transmittedsQuery(_first, _skip){
       })
     }
     //get the response
-    var response = await fetch(queryURL,options)
+    var response = await fetch(queryURLOp,options)
     //parsing the body text as JSON 
     var queryResult =  await response.json()
     //display the list of tokens tokens
@@ -60,8 +62,11 @@ async function ccipsendRequestedsQuery(_first, _skip){
       query: ccipsendRequestedsQuery
     })
   }
+  let response;
   //get the response
-  var response = await fetch(queryURL,options)
+  if(chain == 'op') {
+    response = await fetch(queryURLOp,options)
+  }
   //parsing the body text as JSON
   var queryResult =  await response.json()
   //display the list of tokens tokens
@@ -72,3 +77,4 @@ module.exports = {
   transmittedsQuery,
   ccipsendRequestedsQuery
 }
+

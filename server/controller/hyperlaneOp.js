@@ -41,8 +41,6 @@ async function dispatchesQuery(_first, _skip){
     //parsing the body text as JSON 
     var queryResult =  await response.json()
     //display the list of tokens tokens
-    console.log(queryResult.data.dispatches);
-    console.log(queryResult.data.dispatchIds);
 
     return queryResult
 }
@@ -72,7 +70,6 @@ async function processIdQuery(_first, _skip){
   //parsing the body text as JSON
   var queryResult =  await response.json()
   //display the list of tokens tokens
-  console.log(queryResult.data.processIds);
 
   return queryResult
 }
