@@ -1,38 +1,22 @@
 //import the node-fetch package
-const fetch = require('node-fetch');
-const queryURL = "https://api.studio.thegraph.com/query/51055/l2vistaoptimsmgoerli/v0.0.2"
-
-/*
-* Function to fetch a list of tokens from the number
-* Parameter:
-*     _number - Number of tokens required
-*/
-async function getAddressTxInfo(address){
-    // URL for Covalent endpoint
-    var queryURL = "https://api.covalenthq.com/v1/zora-testnet/address/0xd7a26F297590BF33440f96B93aBd6568E1ce5d58/transactions_summary/";
-
-    var options = {
-    method: 'POST',
-    headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer cqt_rQrf7Ccxb3WBYybjhRKCQp8Y98gG"  // Ensure you add the actual token after "Bearer "
-    },
+const axios = require('axios');
+require("dotenv").config();
+const { COVALANT_KEY } = process.env;
+// Async function to handle the request
+async function getAddressTxInfo(address) {
+    const queryURL = `https://api.covalenthq.com/v1/zora-testnet/address/${address}/transactions_summary/`;
+    const options = {
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${COVALANT_KEY}`  // Ensure you add the actual token after "Bearer "
+        }
     }
 
-    // Async function to handle the fetch request
-    async function fetchData() {
-    var response = await fetch(queryURL, options);
-    var queryResult = await response.json();
-    console.log(queryResult);
+    try {
+        const response = await axios.get(queryURL, options);
+        return response
+    } catch (error) {
+        console.error("Error fetching data:", error);
     }
-
-    fetchData();
-
 }
-
-module.exports = {
-
-}
-
-
-getAddressTxInfo()
+// getAddressTxInfo("0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea")
