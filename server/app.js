@@ -8,6 +8,9 @@ var indexRouter = require('./routes/index');
 var hyperlaneRouter = require('./routes/hyperlane');
 var ccipRouter = require('./routes/ccip');
 
+//MG12
+var txRouter = require('./routes/tx');
+
 var app = express();
 
 // view engine setup
@@ -23,6 +26,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/hyperlane', hyperlaneRouter);
 app.use('/ccip', ccipRouter);
+
+//MG12
+app.use('/tx', txRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
