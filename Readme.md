@@ -7,26 +7,9 @@ graph add 0x073EfC27ad791F735ca1EdF1F9cfe647B8D99aBf --abi=../CCIP.json --contra
 
 
 
-1. hyperlane & op - the graph
-get messgae in first 10, skip 0
+1. get info from covalant
 
 ```
-http://127.0.0.1:3000/hyperlane/optimism/msgin?first=10&skip=0
+http://127.0.0.1:3000/mypage?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea
 ```
 
-get messgae in first 10, skip 0
-```
-http://127.0.0.1:3000/hyperlane/optimism/msgout?first=10&skip=10
-```
-
-3. hyperlane & op - the graph
-
-get messgae in init 10, skip 0
-````
-http://127.0.0.1:3000/ccip/optimism/msgin?first=10&skip=0
-````
-
-get messgae in init 10, skip 0
-````
-http://127.0.0.1:3000/ccip/optimism/msgout?first=10&skip=0
-````

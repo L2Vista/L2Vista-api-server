@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 
 //MG12
 var txRouter = require('./routes/tx');
+var mypageRouter = require('./routes/mypage');
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 
 //MG12
 app.use('/tx', txRouter);
+app.use('/mypage', mypageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
