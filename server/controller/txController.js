@@ -17,6 +17,7 @@ async function txRequestedsQuery(query) {
   const {
     fromchain,
     tochain,
+    hash,
     amount,
     skip,
   } = query;
@@ -47,19 +48,18 @@ async function txRequestedsQuery(query) {
       ON explorer.fromtx.messageId = explorer.totx.messageId
       `
 
-  if (fromchain && tochain) {
-    sql += `
-          WHERE explorer.fromtx.chain = ${fromchain} AND explorer.totx.chain = ${tochain}
-        `
-  } else if (fromchain && !tochain) {
-    sql += `
-          WHERE explorer.fromtx.chain = ${fromchain}
-        `
-  } else if (!fromchain && tochain) {
-    sql += `
-          WHERE explorer.totx.chain = ${tochain}
-        `
-  };
+  if (fromchain || tochain || hash) {
+    sql += `WHERE `;
+    if (fromchain) sql += `explorer.fromtx.chain = ${fromchain} `;
+    if (tochain) {
+      if (fromchain) sql += `AND `;
+      sql += `explorer.totx.chain = ${tochain} `
+    };
+    if (hash) {
+      if (fromchain || tochain) sql += `AND `;
+      sql += `(explorer.fromtx.hash = "${hash}" OR explorer.totx.hash = "${hash}") `
+    };
+  }
 
   sql += `) AS M
   ORDER BY fromTimestamp DESC
@@ -67,7 +67,9 @@ async function txRequestedsQuery(query) {
 
   try {
     const [results, fields] = await connection.execute(sql);
-    return {txRequested: results};
+    return {
+      txRequested: results
+    };
   } catch (err) {
     console.error('Error during query:', err);
     throw err;
@@ -80,6 +82,7 @@ async function txTotalRequestedsQuery(query) {
   const {
     fromchain,
     tochain,
+    hash,
   } = query;
 
   const connection = await createConnection();
@@ -106,19 +109,18 @@ async function txTotalRequestedsQuery(query) {
       ON explorer.fromtx.messageId = explorer.totx.messageId
       `
 
-  if (fromchain && tochain) {
-    sql += `
-          WHERE explorer.fromtx.chain = ${fromchain} AND explorer.totx.chain = ${tochain}
-        `
-  } else if (fromchain && !tochain) {
-    sql += `
-          WHERE explorer.fromtx.chain = ${fromchain}
-        `
-  } else if (!fromchain && tochain) {
-    sql += `
-          WHERE explorer.totx.chain = ${tochain}
-        `
-  };
+  if (fromchain || tochain || hash) {
+    sql += `WHERE `;
+    if (fromchain) sql += `explorer.fromtx.chain = ${fromchain} `;
+    if (tochain) {
+      if (fromchain) sql += `AND `;
+      sql += `explorer.totx.chain = ${tochain} `
+    };
+    if (hash) {
+      if (fromchain || tochain) sql += `AND `;
+      sql += `(explorer.fromtx.hash = "${hash}" OR explorer.totx.hash = "${hash}") `
+    };
+  }
 
   sql += `) AS M;`;
 
