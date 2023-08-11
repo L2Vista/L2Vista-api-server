@@ -5,8 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var hyperlaneRouter = require('./routes/hyperlane');
-var ccipRouter = require('./routes/ccip');
 
 //MG12
 var txRouter = require('./routes/tx');
@@ -24,8 +22,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/hyperlane', hyperlaneRouter);
-app.use('/ccip', ccipRouter);
 
 //MG12
 app.use('/tx', txRouter);
