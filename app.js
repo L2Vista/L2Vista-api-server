@@ -11,7 +11,10 @@ var txRouter = require('./routes/tx');
 var mypageRouter = require('./routes/mypage');
 
 var app = express();
-app.use(cors());
+var corsOptions = {
+  origin: '*',
+};
+app.use(cors(corsOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
