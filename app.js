@@ -1,16 +1,21 @@
 var createError = require('http-errors');
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 
-//MG12
 var txRouter = require('./routes/tx');
+var txCountRouter = require('./routes/txCount');
 var mypageRouter = require('./routes/mypage');
 
 var app = express();
+var corsOptions = {
+  origin: '*',
+};
+app.use(cors(corsOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,8 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
-//MG12
 app.use('/tx', txRouter);
+app.use('/txcount', txCountRouter);
+
 app.use('/mypage', mypageRouter);
 
 // catch 404 and forward to error handler
