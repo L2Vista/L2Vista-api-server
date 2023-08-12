@@ -26,6 +26,7 @@ async function txRequestedsQuery(query) {
 
   let sql = `SELECT
   M.messageId,
+  M.category,
   M.from,
   M.to
   FROM
@@ -33,6 +34,7 @@ async function txRequestedsQuery(query) {
       SELECT
       explorer.fromTx.messageId AS messageId,
       explorer.fromTx.blockTimestamp AS fromTimestamp,
+      explorer.fromTx.category AS category,
       JSON_OBJECT(
           'timestamp', explorer.fromTx.blockTimestamp, 
           'chain', explorer.fromTx.chain,
