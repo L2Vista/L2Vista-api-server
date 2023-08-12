@@ -31,33 +31,33 @@ async function txRequestedsQuery(query) {
   FROM
   (
       SELECT
-      explorer.fromtx.messageId AS messageId,
-      explorer.fromtx.blockTimstamp AS fromTimestamp,
+      explorer.fromTx.messageId AS messageId,
+      explorer.fromTx.blockTimstamp AS fromTimestamp,
       JSON_OBJECT(
-          'timstamp', explorer.fromtx.blockTimstamp, 
-          'chain', explorer.fromtx.chain,
-          'hash', explorer.fromtx.hash
+          'timstamp', explorer.fromTx.blockTimstamp, 
+          'chain', explorer.fromTx.chain,
+          'hash', explorer.fromTx.hash
       ) AS "from",
       JSON_OBJECT(
-          'timstamp', explorer.totx.blockTimstamp, 
-          'chain', explorer.totx.chain,
-          'hash', explorer.totx.hash
+          'timstamp', explorer.toTx.blockTimstamp, 
+          'chain', explorer.toTx.chain,
+          'hash', explorer.toTx.hash
       ) AS "to"
-      FROM explorer.fromtx
-      LEFT JOIN explorer.totx
-      ON explorer.fromtx.messageId = explorer.totx.messageId
+      FROM explorer.fromTx
+      LEFT JOIN explorer.toTx
+      ON explorer.fromTx.messageId = explorer.toTx.messageId
       `
 
   if (fromchain || tochain || hash) {
     sql += `WHERE `;
-    if (fromchain) sql += `explorer.fromtx.chain = ${fromchain} `;
+    if (fromchain) sql += `explorer.fromTx.chain = ${fromchain} `;
     if (tochain) {
       if (fromchain) sql += `AND `;
-      sql += `explorer.totx.chain = ${tochain} `
+      sql += `explorer.toTx.chain = ${tochain} `
     };
     if (hash) {
       if (fromchain || tochain) sql += `AND `;
-      sql += `(explorer.fromtx.hash = "${hash}" OR explorer.totx.hash = "${hash}") `
+      sql += `(explorer.fromTx.hash = "${hash}" OR explorer.toTx.hash = "${hash}") `
     };
   }
 
@@ -92,33 +92,33 @@ async function txTotalRequestedsQuery(query) {
   FROM
   (
       SELECT
-      explorer.fromtx.messageId AS messageId,
-      explorer.fromtx.blockTimstamp AS fromTimestamp,
+      explorer.fromTx.messageId AS messageId,
+      explorer.fromTx.blockTimstamp AS fromTimestamp,
       JSON_OBJECT(
-          'timstamp', explorer.fromtx.blockTimstamp, 
-          'chain', explorer.fromtx.chain,
-          'hash', explorer.fromtx.hash
+          'timstamp', explorer.fromTx.blockTimstamp, 
+          'chain', explorer.fromTx.chain,
+          'hash', explorer.fromTx.hash
       ) AS "from",
       JSON_OBJECT(
-          'timstamp', explorer.totx.blockTimstamp, 
-          'chain', explorer.totx.chain,
-          'hash', explorer.totx.hash
+          'timstamp', explorer.toTx.blockTimstamp, 
+          'chain', explorer.toTx.chain,
+          'hash', explorer.toTx.hash
       ) AS "to"
-      FROM explorer.fromtx
-      LEFT JOIN explorer.totx
-      ON explorer.fromtx.messageId = explorer.totx.messageId
+      FROM explorer.fromTx
+      LEFT JOIN explorer.toTx
+      ON explorer.fromTx.messageId = explorer.toTx.messageId
       `
 
   if (fromchain || tochain || hash) {
     sql += `WHERE `;
-    if (fromchain) sql += `explorer.fromtx.chain = ${fromchain} `;
+    if (fromchain) sql += `explorer.fromTx.chain = ${fromchain} `;
     if (tochain) {
       if (fromchain) sql += `AND `;
-      sql += `explorer.totx.chain = ${tochain} `
+      sql += `explorer.toTx.chain = ${tochain} `
     };
     if (hash) {
       if (fromchain || tochain) sql += `AND `;
-      sql += `(explorer.fromtx.hash = "${hash}" OR explorer.totx.hash = "${hash}") `
+      sql += `(explorer.fromTx.hash = "${hash}" OR explorer.toTx.hash = "${hash}") `
     };
   }
 
