@@ -1,12 +1,19 @@
 var express = require('express');
-const { txRequestedsQuery } = require('../controller/txController');
+const { txTotalRequestedsQuery } = require('../controller/txController');
 var router = express.Router();
 
-/* GET users listing. */
 router.get('/', async function (req, res, next) {
   const response = {}
   try {
-    const data = await txRequestedsQuery(req.query);
+    let query = res.query;
+    if (!query) {
+      query = {
+        fromchain: null,
+        tochain: null,
+        hash: null,
+      }
+    }
+    const data = await txTotalRequestedsQuery(req.query);
     response.status = true;
     response.data = data;
     res.send(response);
