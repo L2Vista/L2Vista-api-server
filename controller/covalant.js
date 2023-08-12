@@ -23,13 +23,7 @@ async function getAddressTxInfo(address) {
             const response = await axios.get(queryURL, options);
             res.chainName = info[0];
             res.chainId = info[1];
-            const data = response.data.data;
-            data.map((d) => {
-                const res = {};
-                res.hash = d.tx_hash;
-                res.chain = d.chainId;
-                res.timstamp = 
-            })
+            res.data = response.data.data;
             responses.push(res)
         } catch (error) {
             console.error("Error fetching data:", error);
