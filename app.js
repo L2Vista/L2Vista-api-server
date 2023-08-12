@@ -1,16 +1,17 @@
 var createError = require('http-errors');
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 
-//MG12
 var txRouter = require('./routes/tx');
 var mypageRouter = require('./routes/mypage');
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
-//MG12
 app.use('/tx', txRouter);
 app.use('/mypage', mypageRouter);
 
