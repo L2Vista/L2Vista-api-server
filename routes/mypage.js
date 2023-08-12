@@ -10,7 +10,7 @@ router.get('/info', async function(req, res, next) {
     const data = await getAddressInfo(address);
     response.status = true;
     response.data = data;
-    res.send(data);
+    res.send(response);
   } catch (error) {
     console.log(error)
     response.status = false;
@@ -26,7 +26,7 @@ router.get('/tx', async function(req, res, next) {
     const data = await getAddressTxInfo(address);
     response.status = true;
     response.data = data;
-    res.send(data);
+    res.send(response);
   } catch (error) {
     console.log(error)
     response.status = false;
