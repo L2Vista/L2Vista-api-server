@@ -9,8 +9,11 @@ var indexRouter = require('./routes/index');
 
 var txRouter = require('./routes/tx');
 var txCountRouter = require('./routes/txCount');
-var mypageInfoRouter = require('./routes/mypageInfo');
-var mypageTxRouter = require('./routes/mypageTx');
+var mypageInfoRouter = require('./routes/mypage/mypageInfo');
+var mypageTxRouter = require('./routes/mypage/mypageTx');
+var mypageApprovedRouter = require('./routes/mypage/mypageApproved');
+var mypageBalanceRouter = require('./routes/mypage/mypageBalance');
+var mypagePortfolioRouter = require('./routes/mypage/mypagePortfolio');
 
 var app = express();
 var corsOptions = {
@@ -34,6 +37,9 @@ app.use('/tx', txRouter);
 app.use('/txcount', txCountRouter);
 app.use('/myinfo', mypageInfoRouter);
 app.use('/mytx', mypageTxRouter);
+app.use('/myapproved', mypageApprovedRouter);
+app.use('/mybalance', mypageBalanceRouter);
+app.use('/myportfolio', mypagePortfolioRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

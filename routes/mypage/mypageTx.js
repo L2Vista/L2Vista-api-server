@@ -1,5 +1,5 @@
 var express = require('express');
-const { getAddressTxInfo, getAddressInfo } = require('../controller/covalant');
+const { getAddressTxInfo } = require('../../controller/covalant');
 var router = express.Router();
 
 router.get('/', async function(req, res, next) {
