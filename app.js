@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 
 app.use('/tx', txRouter);
-app.use('/tx/count', txCountRouter);
+app.use('/txcount', txCountRouter);
 
 app.use('/mypage', mypageRouter);
 
