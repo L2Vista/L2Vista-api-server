@@ -32,14 +32,14 @@ async function txRequestedsQuery(query) {
   (
       SELECT
       explorer.fromTx.messageId AS messageId,
-      explorer.fromTx.blockTimstamp AS fromTimestamp,
+      explorer.fromTx.blockTimestamp AS fromTimestamp,
       JSON_OBJECT(
-          'timstamp', explorer.fromTx.blockTimstamp, 
+          'timestamp', explorer.fromTx.blockTimestamp, 
           'chain', explorer.fromTx.chain,
           'hash', explorer.fromTx.hash
       ) AS "from",
       JSON_OBJECT(
-          'timstamp', explorer.toTx.blockTimstamp, 
+          'timestamp', explorer.toTx.blockTimestamp, 
           'chain', explorer.toTx.chain,
           'hash', explorer.toTx.hash
       ) AS "to"
@@ -93,14 +93,14 @@ async function txTotalRequestedsQuery(query) {
   (
       SELECT
       explorer.fromTx.messageId AS messageId,
-      explorer.fromTx.blockTimstamp AS fromTimestamp,
+      explorer.fromTx.blockTimestamp AS fromTimestamp,
       JSON_OBJECT(
-          'timstamp', explorer.fromTx.blockTimstamp, 
+          'timestamp', explorer.fromTx.blockTimestamp, 
           'chain', explorer.fromTx.chain,
           'hash', explorer.fromTx.hash
       ) AS "from",
       JSON_OBJECT(
-          'timstamp', explorer.toTx.blockTimstamp, 
+          'timestamp', explorer.toTx.blockTimestamp, 
           'chain', explorer.toTx.chain,
           'hash', explorer.toTx.hash
       ) AS "to"
