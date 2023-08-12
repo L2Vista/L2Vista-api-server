@@ -5,7 +5,10 @@ In the expansive world of cross-chain protocols, L2Vista-api-server stands out a
 Navigating the myriad of cross-chain transactions can be daunting. Enter L2Vista: a unified platform distilling transactions from notable chains like Optimism, Base, Zora, and Mode. With support from The-Graph and Covalent, our API server specializes in tracking cross-chain protocols, including Hyperlane and Chainlink CCIP, with unparalleled accuracy.
 
 ## API Endpoints
+
 ### Transaction History API
+this API is made up with thegraph : https://thegraph.com/
+
 Fetch the intricacies of every transaction:
 ```
 /tx?amount=5&skip=0&tochain=420&hash=0xa82c95ceb3a44b5a2bf752af8f066c9a2a4a908860c98f3514161be596260d2d
@@ -20,6 +23,46 @@ Quantifying the myriad transactions:
 /tx?amount=5&skip=0&fromchain=999&tochain=420
 ```
 - Optional parameters: `formchain`, `tochain`, and `hash`.
+
+### My Page APIs
+
+this APIs are made up with covalant : https://www.covalenthq.com/docs/
+
+1. Get multichain token balances of target address:
+```
+/mybalance?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea&nft=true
+```
+Parameters:
+- `nft` , `address` is mandatory.
+- it shows all assets of users (inclued nft info if it is true)
+
+1. Get multichain portfolio(ohlc information) of target address:
+```
+/myportfolio?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea
+```
+Parameters:
+-  `address` is mandatory.
+
+1. Get multichain token approval lists of target address:
+```
+/myapproved?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea
+```
+Parameters:
+-  `address` is mandatory.
+
+1. Get multichain tx lists of target address:
+```
+/mytx?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea
+```
+Parameters:
+-  `address` is mandatory.
+
+1. Get multichain tx summary of target address:
+```
+/myinfo?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea
+```
+Parameters:
+-  `address` is mandatory.
 
 ## Set Up Configuration:
 1. **Review the `.example.env` file.**
