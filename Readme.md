@@ -7,7 +7,7 @@ Navigating the myriad of cross-chain transactions can be daunting. Enter L2Vista
 ## API Endpoints
 
 ### Transaction History API
-this API is made up with thegraph : https://thegraph.com/
+made up with thegraph : https://thegraph.com/
 
 Fetch the intricacies of every transaction:
 ```
@@ -18,17 +18,19 @@ Parameters:
 - Dive deeper with optional parameters like `formchain`, `tochain`, and `hash`.
 
 ### Transaction Count API
+made up with thegraph : https://thegraph.com/
+
 Quantifying the myriad transactions:
 ```
 /tx?amount=5&skip=0&fromchain=999&tochain=420
 ```
 - Optional parameters: `formchain`, `tochain`, and `hash`.
 
-### My Page APIs
+### My Page API
+made up with covalant : https://www.covalenthq.com/docs/
 
-this APIs are made up with covalant : https://www.covalenthq.com/docs/
-
-1. Get multichain token balances of target address:
+### My Balance API
+Get multichain token balances of target address:
 ```
 /mybalance?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea&nft=true
 ```
@@ -36,28 +38,32 @@ Parameters:
 - `nft` , `address` is mandatory.
 - it shows all assets of users (inclued nft info if it is true)
 
-1. Get multichain portfolio(ohlc information) of target address:
+### My Portfolio API
+Get multichain portfolio(ohlc information) of target address:
 ```
 /myportfolio?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea
 ```
 Parameters:
 -  `address` is mandatory.
 
-1. Get multichain token approval lists of target address:
+### My Approval API
+Get multichain token approval lists of target address:
 ```
 /myapproved?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea
 ```
 Parameters:
 -  `address` is mandatory.
 
-1. Get multichain tx lists of target address:
+### My Tx API
+Get multichain tx lists of target address:
 ```
 /mytx?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea
 ```
 Parameters:
 -  `address` is mandatory.
 
-1. Get multichain tx summary of target address:
+### My Info API
+Get multichain tx summary of target address:
 ```
 /myinfo?address=0xa40aa030A3ba4f42FDCd2B7bC33d5B03770290ea
 ```
