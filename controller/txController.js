@@ -135,8 +135,6 @@ async function txTotalRequestedsQuery(query) {
   }
 }
 
-// txRequestedsQuery().then(console.log)
-
 module.exports = {
   txRequestedsQuery,
   txTotalRequestedsQuery,

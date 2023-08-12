@@ -3,8 +3,8 @@ const { txRequestedsQuery, txTotalRequestedsQuery } = require('../controller/txC
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', async function(req, res, next) {
-  const response = {} 
+router.get('/', async function (req, res, next) {
+  const response = {}
   try {
     const data = await txRequestedsQuery(req.query);
     response.status = true;
@@ -17,9 +17,17 @@ router.get('/', async function(req, res, next) {
   }
 });
 
-router.get('/count', async function(req, res, next) {
-  const response = {} 
+router.get('/count', async function (req, res, next) {
+  const response = {}
   try {
+    let query = res.query;
+    if (!query) {
+      query = {
+        fromchain: null,
+        tochain: null,
+        hash: null,
+      }
+    }
     const data = await txTotalRequestedsQuery(req.query);
     response.status = true;
     response.data = data;
