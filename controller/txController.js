@@ -15,12 +15,14 @@ function createConnection() {
 
 async function txRequestedsQuery(query) {
   const {
+    category,
     fromchain,
     tochain,
     hash,
     amount,
     skip,
   } = query;
+  console.log(query)
 
   const connection = await createConnection();
 
@@ -50,7 +52,7 @@ async function txRequestedsQuery(query) {
       ON explorer.fromTx.messageId = explorer.toTx.messageId
       `
 
-  if (fromchain || tochain || hash) {
+  if (fromchain || tochain || hash || category) {
     sql += `WHERE `;
     if (fromchain) sql += `explorer.fromTx.chain = ${fromchain} `;
     if (tochain) {
@@ -60,6 +62,10 @@ async function txRequestedsQuery(query) {
     if (hash) {
       if (fromchain || tochain) sql += `AND `;
       sql += `(explorer.fromTx.hash = "${hash}" OR explorer.toTx.hash = "${hash}") `
+    };
+    if (category) {
+      if (fromchain || tochain || hash) sql += `AND `;
+      sql += `(explorer.fromTx.category = "${category}") `
     };
   }
 
@@ -82,6 +88,7 @@ async function txRequestedsQuery(query) {
 
 async function txTotalRequestedsQuery(query) {
   const {
+    category,
     fromchain,
     tochain,
     hash,
@@ -111,7 +118,7 @@ async function txTotalRequestedsQuery(query) {
       ON explorer.fromTx.messageId = explorer.toTx.messageId
       `
 
-  if (fromchain || tochain || hash) {
+  if (fromchain || tochain || hash || category) {
     sql += `WHERE `;
     if (fromchain) sql += `explorer.fromTx.chain = ${fromchain} `;
     if (tochain) {
@@ -121,6 +128,10 @@ async function txTotalRequestedsQuery(query) {
     if (hash) {
       if (fromchain || tochain) sql += `AND `;
       sql += `(explorer.fromTx.hash = "${hash}" OR explorer.toTx.hash = "${hash}") `
+    };
+    if (category) {
+      if (fromchain || tochain || hash) sql += `AND `;
+      sql += `(explorer.fromTx.category = "${category}") `
     };
   }
 
