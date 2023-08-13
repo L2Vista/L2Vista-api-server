@@ -1,6 +1,8 @@
 const mysql = require('mysql2/promise');
 require("dotenv").config();
 
+const BLOCK_TIMESTAMP = 1691380000;
+
 const dbConfig = {
   host: process.env.HOST,
   user: process.env.DB_USER,
@@ -24,7 +26,6 @@ async function txRequestedsQuery(query) {
     amount,
     skip,
   } = query;
-  console.log(query)
 
   const connection = await createConnection();
 
@@ -56,32 +57,15 @@ async function txRequestedsQuery(query) {
       FROM explorer.fromTx
       LEFT JOIN explorer.toTx
       ON explorer.fromTx.messageId = explorer.toTx.messageId
+      WHERE explorer.fromTx.blockTimestamp >= ${BLOCK_TIMESTAMP}
       `
 
-  if (fromchain || tochain || hash || category || address || success) {
-    sql += `WHERE `;
-    if (fromchain) sql += `explorer.fromTx.chain = ${fromchain} `;
-    if (tochain) {
-      if (fromchain) sql += `AND `;
-      sql += `explorer.toTx.chain = ${tochain} `
-    };
-    if (hash) {
-      if (fromchain || tochain) sql += `AND `;
-      sql += `(explorer.fromTx.hash = "${hash}" OR explorer.toTx.hash = "${hash}") `
-    };
-    if (category) {
-      if (fromchain || tochain || hash) sql += `AND `;
-      sql += `(explorer.fromTx.category = "${category}") `
-    };
-    if (address) {
-      if (fromchain || tochain || hash || category) sql += `AND `;
-      sql += `(explorer.fromTx.fromAddress = "${address}" OR explorer.fromTx.toAddress = "${address}" OR explorer.toTx.fromAddress = "${address}" OR explorer.toTx.toAddress = "${address}") `
-    };
-    if (success) {
-      if (fromchain || tochain || hash || category || address) sql += `AND `;
-      sql += `(explorer.toTx.hash IS NOT NULL) `
-    };
-  }
+  if (fromchain) sql += ` AND explorer.fromTx.chain = ${fromchain}`;
+  if (tochain) sql += ` AND explorer.toTx.chain = ${tochain}`;
+  if (hash) sql += ` AND (explorer.fromTx.hash = "${hash}" OR explorer.toTx.hash = "${hash}")`;
+  if (category) sql += ` AND (explorer.fromTx.category = "${category}")`;
+  if (address) sql += ` AND (explorer.fromTx.fromAddress = "${address}" OR explorer.fromTx.toAddress = "${address}" OR explorer.toTx.fromAddress = "${address}" OR explorer.toTx.toAddress = "${address}")`;
+  if (success) sql += ` AND (explorer.toTx.hash IS NOT NULL)`;
 
   sql += `) AS M
   ORDER BY fromTimestamp DESC
@@ -132,32 +116,15 @@ async function txTotalRequestedsQuery(query) {
       FROM explorer.fromTx
       LEFT JOIN explorer.toTx
       ON explorer.fromTx.messageId = explorer.toTx.messageId
+      WHERE explorer.fromTx.blockTimestamp >= ${BLOCK_TIMESTAMP}
       `
 
-  if (fromchain || tochain || hash || category || address || success) {
-    sql += `WHERE `;
-    if (fromchain) sql += `explorer.fromTx.chain = ${fromchain} `;
-    if (tochain) {
-      if (fromchain) sql += `AND `;
-      sql += `explorer.toTx.chain = ${tochain} `
-    };
-    if (hash) {
-      if (fromchain || tochain) sql += `AND `;
-      sql += `(explorer.fromTx.hash = "${hash}" OR explorer.toTx.hash = "${hash}") `
-    };
-    if (category) {
-      if (fromchain || tochain || hash) sql += `AND `;
-      sql += `(explorer.fromTx.category = "${category}") `
-    };
-    if (address) {
-      if (fromchain || tochain || hash || category) sql += `AND `;
-      sql += `(explorer.fromTx.fromAddress = "${address}" OR explorer.fromTx.toAddress = "${address}" OR explorer.toTx.fromAddress = "${address}" OR explorer.toTx.toAddress = "${address}") `
-    };
-    if (success) {
-      if (fromchain || tochain || hash || category || address) sql += `AND `;
-      sql += `(explorer.toTx.hash IS NOT NULL) `
-    };
-  }
+  if (fromchain) sql += ` AND explorer.fromTx.chain = ${fromchain}`;
+  if (tochain) sql += ` AND explorer.toTx.chain = ${tochain}`;
+  if (hash) sql += ` AND (explorer.fromTx.hash = "${hash}" OR explorer.toTx.hash = "${hash}")`;
+  if (category) sql += ` AND (explorer.fromTx.category = "${category}")`;
+  if (address) sql += ` AND (explorer.fromTx.fromAddress = "${address}" OR explorer.fromTx.toAddress = "${address}" OR explorer.toTx.fromAddress = "${address}" OR explorer.toTx.toAddress = "${address}")`;
+  if (success) sql += ` AND (explorer.toTx.hash IS NOT NULL)`;
 
   sql += `) AS M;`;
 
