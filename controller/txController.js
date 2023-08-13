@@ -30,8 +30,6 @@ async function txRequestedsQuery(query) {
 
   let sql = `SELECT
   M.messageId,
-  M.sender,
-  M.recipient,
   M.category,
   M.from,
   M.to
@@ -39,16 +37,18 @@ async function txRequestedsQuery(query) {
   (
       SELECT
       explorer.fromTx.messageId AS messageId,
-      explorer.fromTx.sender AS sender,
-      explorer.fromTx.recipient AS recipient,
       explorer.fromTx.blockTimestamp AS fromTimestamp,
       explorer.fromTx.category AS category,
       JSON_OBJECT(
+          'from', explorer.fromTx.fromAddress, 
+          'to', explorer.fromTx.toAddress, 
           'timestamp', explorer.fromTx.blockTimestamp, 
           'chain', explorer.fromTx.chain,
           'hash', explorer.fromTx.hash
       ) AS "from",
       JSON_OBJECT(
+          'from', explorer.fromTx.fromAddress, 
+          'to', explorer.fromTx.toAddress,
           'timestamp', explorer.toTx.blockTimestamp, 
           'chain', explorer.toTx.chain,
           'hash', explorer.toTx.hash
@@ -75,12 +75,11 @@ async function txRequestedsQuery(query) {
     };
     if (address) {
       if (fromchain || tochain || hash || category) sql += `AND `;
-      sql += `(explorer.fromTx.sender = "${address}" OR explorer.fromTx.recipient = "${address}") `
+      sql += `(explorer.fromTx.fromAddress = "${address}" OR explorer.fromTx.toAddress = "${address}" OR explorer.toTx.fromAddress = "${address}" OR explorer.toTx.toAddress = "${address}") `
     };
     if (success) {
       if (fromchain || tochain || hash || category || address) sql += `AND `;
-      if (success == 1)sql += `(explorer.toTx.hash IS NOT NULL) `;
-      if (success == 2)sql += `(explorer.toTx.hash IS NULL) `;
+      sql += `(explorer.toTx.hash IS NOT NULL) `
     };
   }
 
@@ -119,8 +118,6 @@ async function txTotalRequestedsQuery(query) {
   (
       SELECT
       explorer.fromTx.messageId AS messageId,
-      explorer.fromTx.sender AS sender,
-      explorer.fromTx.recipient AS recipient,
       explorer.fromTx.blockTimestamp AS fromTimestamp,
       JSON_OBJECT(
           'timestamp', explorer.fromTx.blockTimestamp, 
@@ -154,7 +151,7 @@ async function txTotalRequestedsQuery(query) {
     };
     if (address) {
       if (fromchain || tochain || hash || category) sql += `AND `;
-      sql += `(explorer.fromTx.sender = "${address}" OR explorer.fromTx.recipient = "${address}") `
+      sql += `(explorer.fromTx.fromAddress = "${address}" OR explorer.fromTx.toAddress = "${address}" OR explorer.toTx.fromAddress = "${address}" OR explorer.toTx.toAddress = "${address}") `
     };
     if (success) {
       if (fromchain || tochain || hash || category || address) sql += `AND `;
