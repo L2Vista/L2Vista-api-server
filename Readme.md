@@ -4,6 +4,29 @@ In the expansive world of cross-chain protocols, L2Vista-api-server stands out a
 ## Introduction
 Navigating the myriad of cross-chain transactions can be daunting. Enter L2Vista: a unified platform distilling transactions from notable chains like Optimism, Base, Zora, and Mode. With support from The-Graph and Covalent, our API server specializes in tracking cross-chain protocols, including Hyperlane and Chainlink CCIP, with unparalleled accuracy.
 
+## Flow Chart
+
+```mermaid
+flowchart TD
+    OP[Optimsim] --> A[CCIP Contract]
+    OP --> B[Hyperlane Contract]
+    BA[Base] --> A[CCIP Contract]
+    BA --> B[Hyperlane Contract]
+    ZO[ZORA] --> A[CCIP Contract]
+    ZO --> B[Hyperlane Contract]
+    MODE --> A
+    MODE --> B
+    A --> |A-1. get event from TheGraph| C(DB Server)
+    B --> |A-2. get event from TheGraph| C(DB Server)
+    C[DB Server] -->  D[API Server]
+    A[CCIP Contract] --> |B-1. get tx info from Covalant|D[API Server]
+    B[Hyperlane Contract] --> |B-2. get tx info from Covalant|D[API Server]
+    D--> |C-1. Check Data|D
+    D[API Server]--> E[Front End]
+    E --> |D-1. Check Data|E
+    E --> Client
+```
+
 ## API Endpoints
 
 ### Transaction History API
