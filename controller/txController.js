@@ -1,8 +1,6 @@
 const mysql = require('mysql2/promise');
 require("dotenv").config();
 
-const BLOCK_TIMESTAMP = 1691380000;
-
 const dbConfig = {
   host: process.env.HOST,
   user: process.env.DB_USER,
@@ -28,6 +26,7 @@ async function txRequestedsQuery(query) {
   } = query;
 
   const connection = await createConnection();
+  const BLOCK_TIMESTAMP = Math.floor((new Date()).getTime() / 1000) - 120;
 
   let sql = `SELECT
   M.messageId,
@@ -57,7 +56,9 @@ async function txRequestedsQuery(query) {
       FROM explorer.fromTx
       LEFT JOIN explorer.toTx
       ON explorer.fromTx.messageId = explorer.toTx.messageId
-      WHERE explorer.fromTx.blockTimestamp >= ${BLOCK_TIMESTAMP}
+      WHERE 
+      explorer.fromTx.blockTimestamp >= ${BLOCK_TIMESTAMP}
+      OR (explorer.fromTx.blockTimestamp < ${BLOCK_TIMESTAMP} AND explorer.toTx.hash IS NOT NULL)
       `
 
   if (fromchain) sql += ` AND explorer.fromTx.chain = ${fromchain}`;
@@ -95,6 +96,7 @@ async function txTotalRequestedsQuery(query) {
   } = query;
 
   const connection = await createConnection();
+  const BLOCK_TIMESTAMP = Math.floor((new Date()).getTime() / 1000) - 120;
 
   let sql = `SELECT
   COUNT(*) AS num 
@@ -116,7 +118,9 @@ async function txTotalRequestedsQuery(query) {
       FROM explorer.fromTx
       LEFT JOIN explorer.toTx
       ON explorer.fromTx.messageId = explorer.toTx.messageId
-      WHERE explorer.fromTx.blockTimestamp >= ${BLOCK_TIMESTAMP}
+      WHERE 
+      explorer.fromTx.blockTimestamp >= ${BLOCK_TIMESTAMP}
+      OR (explorer.fromTx.blockTimestamp < ${BLOCK_TIMESTAMP} AND explorer.toTx.hash IS NOT NULL)
       `
 
   if (fromchain) sql += ` AND explorer.fromTx.chain = ${fromchain}`;
