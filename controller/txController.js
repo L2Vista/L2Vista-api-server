@@ -26,7 +26,7 @@ async function txRequestedsQuery(query) {
   } = query;
 
   const connection = await createConnection();
-  const BLOCK_TIMESTAMP = Math.floor((new Date()).getTime() / 1000) - 120;
+  const BLOCK_TIMESTAMP = Math.floor((new Date()).getTime() / 1000) - 600;
 
   let sql = `SELECT
   M.messageId,
@@ -96,7 +96,7 @@ async function txTotalRequestedsQuery(query) {
   } = query;
 
   const connection = await createConnection();
-  const BLOCK_TIMESTAMP = Math.floor((new Date()).getTime() / 1000) - 120;
+  const BLOCK_TIMESTAMP = Math.floor((new Date()).getTime() / 1000) - 600;
 
   let sql = `SELECT
   COUNT(*) AS num 
