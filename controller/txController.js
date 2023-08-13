@@ -79,7 +79,8 @@ async function txRequestedsQuery(query) {
     };
     if (success) {
       if (fromchain || tochain || hash || category || address) sql += `AND `;
-      sql += `(explorer.toTx.hash IS NOT NULL) `
+      if (success == 1)sql += `(explorer.toTx.hash IS NOT NULL) `;
+      if (success == 2)sql += `(explorer.toTx.hash IS NULL) `;
     };
   }
 
