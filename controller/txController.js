@@ -47,8 +47,8 @@ async function txRequestedsQuery(query) {
           'hash', explorer.fromTx.hash
       ) AS "from",
       JSON_OBJECT(
-          'from', explorer.fromTx.fromAddress, 
-          'to', explorer.fromTx.toAddress,
+          'from', explorer.toTx.fromAddress, 
+          'to', explorer.toTx.toAddress,
           'timestamp', explorer.toTx.blockTimestamp, 
           'chain', explorer.toTx.chain,
           'hash', explorer.toTx.hash
