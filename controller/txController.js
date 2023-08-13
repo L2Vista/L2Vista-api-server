@@ -19,6 +19,7 @@ async function txRequestedsQuery(query) {
     fromchain,
     tochain,
     hash,
+    address,
     amount,
     skip,
   } = query;
@@ -56,7 +57,7 @@ async function txRequestedsQuery(query) {
       ON explorer.fromTx.messageId = explorer.toTx.messageId
       `
 
-  if (fromchain || tochain || hash || category) {
+  if (fromchain || tochain || hash || category || address) {
     sql += `WHERE `;
     if (fromchain) sql += `explorer.fromTx.chain = ${fromchain} `;
     if (tochain) {
@@ -70,6 +71,10 @@ async function txRequestedsQuery(query) {
     if (category) {
       if (fromchain || tochain || hash) sql += `AND `;
       sql += `(explorer.fromTx.category = "${category}") `
+    };
+    if (address) {
+      if (fromchain || tochain || hash || category) sql += `AND `;
+      sql += `(explorer.fromTx.sender = "${address}" OR explorer.fromTx.recipient = "${address}") `
     };
   }
 
@@ -93,6 +98,7 @@ async function txRequestedsQuery(query) {
 async function txTotalRequestedsQuery(query) {
   const {
     category,
+    address,
     fromchain,
     tochain,
     hash,
@@ -124,7 +130,7 @@ async function txTotalRequestedsQuery(query) {
       ON explorer.fromTx.messageId = explorer.toTx.messageId
       `
 
-  if (fromchain || tochain || hash || category) {
+  if (fromchain || tochain || hash || category || address) {
     sql += `WHERE `;
     if (fromchain) sql += `explorer.fromTx.chain = ${fromchain} `;
     if (tochain) {
@@ -138,6 +144,10 @@ async function txTotalRequestedsQuery(query) {
     if (category) {
       if (fromchain || tochain || hash) sql += `AND `;
       sql += `(explorer.fromTx.category = "${category}") `
+    };
+    if (address) {
+      if (fromchain || tochain || hash || category) sql += `AND `;
+      sql += `(explorer.fromTx.sender = "${address}" OR explorer.fromTx.recipient = "${address}") `
     };
   }
 
