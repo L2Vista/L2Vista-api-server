@@ -28,6 +28,8 @@ async function txRequestedsQuery(query) {
 
   let sql = `SELECT
   M.messageId,
+  M.sender,
+  M.recipient,
   M.category,
   M.from,
   M.to
@@ -35,6 +37,8 @@ async function txRequestedsQuery(query) {
   (
       SELECT
       explorer.fromTx.messageId AS messageId,
+      explorer.fromTx.sender AS sender,
+      explorer.fromTx.recipient AS recipient,
       explorer.fromTx.blockTimestamp AS fromTimestamp,
       explorer.fromTx.category AS category,
       JSON_OBJECT(
@@ -102,6 +106,8 @@ async function txTotalRequestedsQuery(query) {
   (
       SELECT
       explorer.fromTx.messageId AS messageId,
+      explorer.fromTx.sender AS sender,
+      explorer.fromTx.recipient AS recipient,
       explorer.fromTx.blockTimestamp AS fromTimestamp,
       JSON_OBJECT(
           'timestamp', explorer.fromTx.blockTimestamp, 
