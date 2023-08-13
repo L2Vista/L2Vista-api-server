@@ -1,0 +1,175 @@
+[
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint64",
+              "name": "sourceChainSelector",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "sequenceNumber",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeTokenAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint64",
+              "name": "nonce",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint256",
+              "name": "gasLimit",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "strict",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "token",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amount",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct Client.EVMTokenAmount[]",
+              "name": "tokenAmounts",
+              "type": "tuple[]"
+            },
+            {
+              "internalType": "address",
+              "name": "feeToken",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "messageId",
+              "type": "bytes32"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct Internal.EVM2EVMMessage",
+          "name": "message",
+          "type": "tuple"
+        }
+      ],
+      "name": "CCIPSendRequested",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint64",
+          "name": "sequenceNumber",
+          "type": "uint64"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "messageId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum Internal.MessageExecutionState",
+          "name": "state",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "returnData",
+          "type": "bytes"
+        }
+      ],
+      "name": "ExecutionStateChanged",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint32",
+          "name": "_uint32",
+          "type": "uint32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_bytes",
+          "type": "bytes"
+        }
+      ],
+      "name": "combine",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "messageId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "receiveMessage",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint32",
+          "name": "_destinationDomain",
+          "type": "uint32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_messageBody",
+          "type": "bytes"
+        }
+      ],
+      "name": "sendMessage",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
