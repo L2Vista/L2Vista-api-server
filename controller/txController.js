@@ -57,8 +57,8 @@ async function txRequestedsQuery(query) {
       LEFT JOIN explorer.toTx
       ON explorer.fromTx.messageId = explorer.toTx.messageId
       WHERE 
-      explorer.fromTx.blockTimestamp >= ${BLOCK_TIMESTAMP}
-      OR (explorer.fromTx.blockTimestamp < ${BLOCK_TIMESTAMP} AND explorer.toTx.hash IS NOT NULL)
+      (explorer.fromTx.blockTimestamp >= ${BLOCK_TIMESTAMP}
+      OR (explorer.fromTx.blockTimestamp < ${BLOCK_TIMESTAMP} AND explorer.toTx.hash IS NOT NULL))
       `
 
   if (fromchain) sql += ` AND explorer.fromTx.chain = ${fromchain}`;
@@ -119,8 +119,8 @@ async function txTotalRequestedsQuery(query) {
       LEFT JOIN explorer.toTx
       ON explorer.fromTx.messageId = explorer.toTx.messageId
       WHERE 
-      explorer.fromTx.blockTimestamp >= ${BLOCK_TIMESTAMP}
-      OR (explorer.fromTx.blockTimestamp < ${BLOCK_TIMESTAMP} AND explorer.toTx.hash IS NOT NULL)
+      (explorer.fromTx.blockTimestamp >= ${BLOCK_TIMESTAMP}
+      OR (explorer.fromTx.blockTimestamp < ${BLOCK_TIMESTAMP} AND explorer.toTx.hash IS NOT NULL))
       `
 
   if (fromchain) sql += ` AND explorer.fromTx.chain = ${fromchain}`;
